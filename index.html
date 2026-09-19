@@ -186,6 +186,33 @@
   .actions-grid .action-card:nth-child(4){transition-delay:.15s;}
   .actions-grid .action-card:nth-child(5){transition-delay:.2s;}
 
+  /* ---------- Products (NEW — Phase 1) ---------- */
+  .products{padding:24px 24px 88px;scroll-margin-top:90px;}
+  .product-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+  .filter-chip{padding:7px 14px;border-radius:var(--radius-pill);border:1px solid var(--border);font-size:13px;font-weight:500;background:var(--surface);transition:background .2s,border-color .2s,color .2s;}
+  .filter-chip:hover{border-color:var(--marigold);}
+  .filter-chip[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text);}
+  .product-status{font-size:13px;color:var(--text-muted);margin-bottom:18px;min-height:1.2em;}
+  .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;color:var(--text-muted);}
+  .product-card{display:flex;flex-direction:column;background-color:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-md);padding:15px;transition:transform .2s var(--ease),box-shadow .2s var(--ease);}
+  .product-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
+  .product-thumb{height:120px;border-radius:8px;margin-bottom:12px;display:grid;place-items:center;font-size:46px;line-height:1;}
+  .product-card .badge{align-self:flex-start;}
+  .product-title{font-family:var(--font-body);font-size:15px;font-weight:600;line-height:1.35;margin-bottom:4px;letter-spacing:0;}
+  .product-meta{font-size:12.5px;color:var(--text-muted);margin-bottom:12px;}
+  .product-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:8px;}
+  .product-price{font-family:var(--font-head);font-size:21px;font-weight:600;}
+  .stock{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;}
+  .stock::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;}
+  .stock-in{color:var(--pine);}
+  .stock-low{color:#A8691A;}
+  [data-theme="dark"] .stock-low{color:var(--marigold);}
+  .stock-out{color:var(--plum);}
+  .product-card .btn{margin-top:auto;width:100%;}
+  .product-card.is-out .product-thumb{filter:grayscale(1);opacity:.55;}
+  .product-card.is-out .product-price{color:var(--text-muted);}
+  .product-empty{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;gap:14px;padding:36px 20px;text-align:center;border:1px dashed var(--border);border-radius:var(--radius-md);}
+
   /* ---------- AI strip (Ori) ---------- */
   .ai-strip{background-color:var(--surface-2);padding:60px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
   .ai-strip-head{max-width:640px;margin-bottom:32px;display:flex;flex-direction:column;gap:14px;}
@@ -299,8 +326,8 @@
     </a>
 
     <nav class="primary-nav" aria-label="Primary">
-      <a href="#" class="nav-link" data-accent="sky">Explore</a>
-      <a href="#" class="nav-link" data-accent="marigold">Buy</a>
+      <a href="#products" class="nav-link" data-accent="sky">Explore</a>
+      <a href="#products" class="nav-link" data-accent="marigold">Buy</a>
       <a href="#" class="nav-link" data-accent="pine">Sell</a>
       <a href="#" class="nav-link" data-accent="sky">Services</a>
       <a href="#" class="nav-link" data-accent="plum">Ask</a>
@@ -335,8 +362,8 @@
 
 <div class="mobile-drawer" id="mobileDrawer" hidden>
   <nav aria-label="Mobile menu">
-    <a class="drawer-link" href="#">Explore</a>
-    <a class="drawer-link" href="#">Buy</a>
+    <a class="drawer-link" href="#products">Explore</a>
+    <a class="drawer-link" href="#products">Buy</a>
     <a class="drawer-link" href="#">Sell</a>
     <a class="drawer-link" href="#">Services</a>
     <a class="drawer-link" href="#">Ask</a>
@@ -400,7 +427,7 @@
       <p>Five ways in — the rest of the platform grows from here.</p>
     </div>
     <div class="actions-grid">
-      <a class="action-card action-buy reveal" href="#">
+      <a class="action-card action-buy reveal" href="#products">
         <span class="action-icon">🛍️</span>
         <h3>Buy</h3>
         <p>Discover and purchase products.</p>
@@ -412,7 +439,7 @@
         <p>List something for sale quickly.</p>
         <span class="action-arrow">→</span>
       </a>
-      <a class="action-card action-explore reveal" href="#">
+      <a class="action-card action-explore reveal" href="#products">
         <div class="action-explore-text">
           <span class="action-icon">🔎</span>
           <div>
@@ -435,6 +462,17 @@
         <span class="action-arrow">→</span>
       </a>
     </div>
+  </section>
+
+  <!-- NEW: Products section (data comes from products.json via products.js) -->
+  <section class="products container" id="products" aria-labelledby="productsTitle">
+    <div class="section-head">
+      <h2 id="productsTitle">Buy something useful</h2>
+      <p>Listings from real sellers. Sold-out items stay visible so you can check back later.</p>
+    </div>
+    <div class="product-toolbar" id="productFilters" role="group" aria-label="Filter products by category"></div>
+    <p class="product-status" id="productStatus" aria-live="polite"></p>
+    <div class="product-grid" id="product-grid"></div>
   </section>
 
   <section class="ai-strip">
@@ -508,7 +546,7 @@
       <div class="section-head" style="margin-bottom:0;">
         <h2>Trending right now</h2>
       </div>
-      <a href="#" class="btn btn-outline">Explore everything →</a>
+      <a href="#products" class="btn btn-outline">Explore everything →</a>
     </div>
     <div class="trending-scroll">
       <article class="trend-card reveal">
@@ -561,14 +599,14 @@
       </div>
       <div class="footer-col">
         <h5>Marketplace</h5>
-        <a href="#">Buy</a>
+        <a href="#products">Buy</a>
         <a href="#">Sell</a>
-        <a href="#">Categories</a>
+        <a href="#products">Categories</a>
       </div>
       <div class="footer-col">
         <h5>Community</h5>
         <a href="#">Ask a question</a>
-        <a href="#">Explore</a>
+        <a href="#products">Explore</a>
         <a href="#">Learn</a>
       </div>
       <div class="footer-col">
@@ -638,7 +676,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>
     <span>Home</span>
   </a>
-  <a href="#" class="mnav-item">
+  <a href="#products" class="mnav-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><polygon points="15.5 8.5 13.2 13.2 8.5 15.5 10.8 10.8 15.5 8.5"/></svg>
     <span>Explore</span>
   </a>
@@ -682,10 +720,16 @@
     if (willOpen) { drawer.removeAttribute('hidden'); } else { drawer.setAttribute('hidden',''); }
     hamburgerBtn.setAttribute('aria-expanded', String(willOpen));
   });
+  // NEW: close the drawer after tapping a link
+  drawer.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      drawer.setAttribute('hidden','');
+      hamburgerBtn.setAttribute('aria-expanded','false');
+    });
+  });
 
-  // Hero search
+  // Hero search (filtering is handled in products.js)
   var heroSearch = document.getElementById('heroSearch');
-  document.getElementById('heroSearchForm').addEventListener('submit', function(e){ e.preventDefault(); });
   document.querySelectorAll('.chip[data-q]').forEach(function(chip){
     chip.addEventListener('click', function(){
       heroSearch.value = chip.dataset.q;
@@ -885,5 +929,8 @@
   });
 })();
 </script>
+
+<!-- NEW: loads products.json and powers the product grid + search -->
+<script src="products.js" defer></script>
 </body>
 </html>

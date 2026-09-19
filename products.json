@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "name": "Mechanical Keyboard",
+    "price": 65,
+    "category": "Electronics",
+    "condition": "Like new",
+    "image": "⌨️",
+    "description": "Blue switches, RGB backlight, full-size layout. Used for 3 months.",
+    "features": ["Blue switches", "RGB backlight", "USB-C cable"],
+    "stock": 3,
+    "seller": "Tanvir",
+    "rating": 4.7
+  },
+  {
+    "id": 2,
+    "name": "Vintage Film Camera",
+    "price": 120,
+    "category": "Cameras",
+    "condition": "Good",
+    "image": "📷",
+    "description": "35mm film camera from the 1980s. Tested and working, with strap.",
+    "features": ["35mm film", "Manual focus", "Original strap"],
+    "stock": 1,
+    "seller": "Nadia",
+    "rating": 4.9
+  },
+  {
+    "id": 3,
+    "name": "Handmade Ceramic Mug Set",
+    "price": 32,
+    "category": "Home",
+    "condition": "New",
+    "image": "☕",
+    "description": "Set of 4 hand-glazed mugs. Microwave and dishwasher safe.",
+    "features": ["Set of 4", "Microwave safe", "Dishwasher safe"],
+    "stock": 12,
+    "seller": "Maya R.",
+    "rating": 4.8
+  },
+  {
+    "id": 4,
+    "name": "Programming Laptop",
+    "price": 780,
+    "category": "Electronics",
+    "condition": "Like new",
+    "image": "💻",
+    "description": "16GB RAM, 512GB SSD, Ryzen 7. Great for coding and light gaming.",
+    "features": ["16GB RAM", "512GB SSD", "Ryzen 7"],
+    "stock": 0,
+    "seller": "Sky",
+    "rating": 4.6
+  },
+  {
+    "id": 5,
+    "name": "Wireless Earbuds",
+    "price": 45,
+    "category": "Electronics",
+    "condition": "New",
+    "image": "🎧",
+    "description": "Noise cancelling, 24-hour battery with case, water resistant.",
+    "features": ["Noise cancelling", "24h battery", "IPX4"],
+    "stock": 8,
+    "seller": "Rafi",
+    "rating": 4.5
+  },
+  {
+    "id": 6,
+    "name": "Python Crash Course (Book)",
+    "price": 18,
+    "category": "Books",
+    "condition": "Good",
+    "image": "📘",
+    "description": "Beginner-friendly Python book. A few notes in pencil.",
+    "features": ["Paperback", "3rd edition", "Beginner level"],
+    "stock": 0,
+    "seller": "Arif",
+    "rating": 4.9
+  }
+]
