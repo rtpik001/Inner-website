@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Product — Inner Oldest Dream</title>
+<script>
+  (function(){
+    try{
+      var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    }catch(e){}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2EFE7; --surface:#FFFFFF; --surface-2:#FBF9F3; --text:#1B2420; --text-muted:#5B6560; --border:rgba(27,36,32,0.11);
+    --marigold:#E7A33E; --marigold-ink:#5C3B10; --pine:#2F6659; --plum:#7C3F63; --sky:#3E6B8A;
+    --radius-md:16px; --radius-lg:24px; --radius-pill:999px;
+    --shadow-md:0 10px 28px -10px rgba(27,36,32,.20);
+    --ease:cubic-bezier(.22,1,.36,1);
+    --font-head:'Fraunces',"Iowan Old Style",serif; --font-body:'Space Grotesk',"Helvetica Neue",sans-serif;
+  }
+  [data-theme="dark"]{
+    --bg:#141F1B; --surface:#1B2822; --surface-2:#1F2E27; --text:#ECE8DC; --text-muted:#A9B3AC; --border:rgba(236,232,220,.12);
+    --marigold:#F0B25C; --marigold-ink:#2C1B06; --pine:#4C8C79; --plum:#9C5A80; --sky:#6FA0C0;
+    --shadow-md:0 10px 28px -10px rgba(0,0,0,.5);
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
+  h1,h2,h3{font-family:var(--font-head);margin:0;font-weight:600;letter-spacing:-.01em;}
+  p{margin:0;}
+  :focus-visible{outline:2px solid var(--sky);outline-offset:3px;border-radius:4px;}
+
+  .container{max-width:1100px;margin:0 auto;padding:0 24px;}
+  @media (max-width:640px){.container{padding:0 20px;}}
+
+  .top{border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:10;}
+  .top-inner{display:flex;align-items:center;justify-content:space-between;height:68px;gap:12px;}
+  .brand{font-family:var(--font-head);font-weight:600;letter-spacing:.04em;font-size:15px;}
+  .icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:var(--radius-pill);color:var(--text-muted);}
+  .icon-btn:hover{background:var(--surface-2);color:var(--text);}
+  .icon-btn svg{width:19px;height:19px;}
+  .icon-moon{display:none;}
+  [data-theme="dark"] .icon-sun{display:none;}
+  [data-theme="dark"] .icon-moon{display:block;}
+
+  .back{display:inline-flex;align-items:center;gap:6px;margin:28px 0 20px;font-size:14px;font-weight:500;color:var(--text-muted);}
+  .back:hover{color:var(--text);}
+
+  .detail{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;padding-bottom:64px;}
+  @media (max-width:800px){.detail{grid-template-columns:1fr;gap:24px;}}
+
+  .hero-img{aspect-ratio:1/1;border-radius:var(--radius-lg);display:grid;place-items:center;font-size:clamp(90px,18vw,160px);line-height:1;border:1px solid var(--border);}
+  .is-out .hero-img{filter:grayscale(1);opacity:.6;}
+  .tint-marigold{background:color-mix(in srgb, var(--marigold) 30%, var(--surface-2));}
+  .tint-pine{background:color-mix(in srgb, var(--pine) 24%, var(--surface-2));}
+  .tint-plum{background:color-mix(in srgb, var(--plum) 22%, var(--surface-2));}
+  .tint-sky{background:color-mix(in srgb, var(--sky) 22%, var(--surface-2));}
+
+  .badge{display:inline-flex;padding:3px 10px;border-radius:var(--radius-pill);font-size:10.5px;font-weight:700;text-transform:uppercase;background:var(--marigold);color:var(--marigold-ink);margin-bottom:12px;}
+  .title{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.1;margin-bottom:10px;}
+  .meta{color:var(--text-muted);font-size:14px;margin-bottom:22px;}
+  .price-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px;}
+  .price{font-family:var(--font-head);font-size:36px;font-weight:600;}
+  .is-out .price{color:var(--text-muted);text-decoration:line-through;}
+  .stock{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;}
+  .stock::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;}
+  .stock-in{color:var(--pine);} .stock-low{color:#A8691A;} [data-theme="dark"] .stock-low{color:var(--marigold);} .stock-out{color:var(--plum);}
+  .desc{font-size:16px;line-height:1.65;margin-bottom:22px;max-width:52ch;}
+  .features{list-style:none;padding:0;margin:0 0 26px;display:flex;flex-wrap:wrap;gap:8px;}
+  .features li{padding:6px 12px;border:1px solid var(--border);border-radius:var(--radius-pill);font-size:13px;background:var(--surface);}
+
+  .buy-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;}
+  .qty-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;font-size:14px;}
+  .qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:var(--radius-pill);}
+  .qty button{width:38px;height:38px;font-size:18px;border-radius:var(--radius-pill);}
+  .qty button:hover{background:var(--surface-2);}
+  .qty output{min-width:32px;text-align:center;font-weight:600;}
+  .btn{display:flex;width:100%;align-items:center;justify-content:center;padding:13px 20px;border-radius:var(--radius-pill);font-weight:600;font-size:15px;transition:box-shadow .2s var(--ease);}
+  .btn-primary{background:var(--text);color:var(--bg);}
+  .btn-primary:hover{box-shadow:var(--shadow-md);}
+  .btn-outline{border:1px solid var(--border);}
+  .btn-outline:hover{background:var(--surface-2);}
+  .notice{margin-top:12px;font-size:13px;color:var(--text-muted);min-height:1.2em;}
+  .seller{display:flex;align-items:center;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);font-size:14px;}
+  .avatar{width:38px;height:38px;border-radius:50%;background:var(--pine);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px;}
+
+  .related{padding:0 0 80px;}
+  .related h2{font-size:1.5rem;margin-bottom:18px;}
+  .rel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
+  .rel-card{display:block;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;transition:box-shadow .2s var(--ease);}
+  .rel-card:hover{box-shadow:var(--shadow-md);}
+  .rel-thumb{height:90px;border-radius:8px;display:grid;place-items:center;font-size:36px;margin-bottom:10px;}
+  .rel-name{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .rel-price{font-size:13px;color:var(--text-muted);}
+
+  .state{padding:80px 0;text-align:center;}
+  .state h1{font-size:2rem;margin-bottom:10px;}
+  .state p{color:var(--text-muted);margin-bottom:22px;}
+  .state .btn{display:inline-flex;width:auto;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="container top-inner">
+    <a class="brand" href="index.html">INNER OLDEST DREAM</a>
+    <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M4.9 4.9l1.85 1.85M17.25 17.25l1.85 1.85M2.5 12h2.6M18.9 12h2.6M4.9 19.1l1.85-1.85M17.25 6.75l1.85-1.85"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="container" id="app">
+  <p class="state">Loading product…</p>
+</main>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  var app = document.getElementById('app');
+  var TINTS = { Electronics:'tint-sky', Cameras:'tint-marigold', Home:'tint-pine', Books:'tint-plum' };
+
+  // helper: textContent দিয়ে element বানায় (XSS safe)
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+
+  function stockInfo(s){
+    if (s === 0) return { text:'Out of stock', cls:'stock-out' };
+    if (s <= 2) return { text:'Only ' + s + ' left', cls:'stock-low' };
+    return { text:'In stock (' + s + ')', cls:'stock-in' };
+  }
+
+  function showState(title, body){
+    app.textContent = '';
+    var box = el('div', 'state');
+    box.append(el('h1', '', title), el('p', '', body));
+    var a = el('a', 'btn btn-primary', 'Back to products');
+    a.href = 'index.html#products';
+    box.append(a);
+    app.append(box);
+    document.title = title + ' — Inner Oldest Dream';
+  }
+
+  function render(p, all){
+    document.title = p.name + ' — Inner Oldest Dream';
+    app.textContent = '';
+
+    var back = el('a', 'back', '← Back to products');
+    back.href = 'index.html#products';
+    app.append(back);
+
+    var detail = el('section', 'detail' + (p.stock === 0 ? ' is-out' : ''));
+
+    var img = el('div', 'hero-img ' + (TINTS[p.category] || 'tint-marigold'), p.image || '📦');
+    img.setAttribute('aria-hidden', 'true');
+
+    var info = el('div');
+    info.append(el('span', 'badge', p.category));
+    info.append(el('h1', 'title', p.name));
+    info.append(el('p', 'meta', p.condition + ' · ★ ' + p.rating));
+
+    var st = stockInfo(p.stock);
+    var priceRow = el('div', 'price-row');
+    priceRow.append(el('span', 'price', '$' + p.price), el('span', 'stock ' + st.cls, st.text));
+    info.append(priceRow);
+
+    if (p.description) info.append(el('p', 'desc', p.description));
+
+    if (Array.isArray(p.features) && p.features.length){
+      var ul = el('ul', 'features');
+      p.features.forEach(function(f){ ul.append(el('li', '', f)); });
+      info.append(ul);
+    }
+
+    // Buy box
+    var box = el('div', 'buy-box');
+    var notice = el('p', 'notice');
+    notice.setAttribute('aria-live', 'polite');
+
+    if (p.stock > 0){
+      var qty = 1;
+      var qtyRow = el('div', 'qty-row');
+      qtyRow.append(el('span', '', 'Quantity'));
+      var q = el('div', 'qty');
+      var minus = el('button', '', '−'); minus.type = 'button'; minus.setAttribute('aria-label', 'Decrease quantity');
+      var out = el('output', '', '1');
+      var plus = el('button', '', '+'); plus.type = 'button'; plus.setAttribute('aria-label', 'Increase quantity');
+      minus.addEventListener('click', function(){ if (qty > 1){ qty--; out.textContent = qty; notice.textContent = ''; } });
+      plus.addEventListener('click', function(){
+        if (qty < p.stock){ qty++; out.textContent = qty; notice.textContent = ''; }
+        else { notice.textContent = 'Only ' + p.stock + ' available.'; }
+      });
+      q.append(minus, out, plus);
+      qtyRow.append(q);
+      box.append(qtyRow);
+
+      var buy = el('button', 'btn btn-primary', 'Buy now');
+      buy.type = 'button';
+      buy.addEventListener('click', function(){
+        notice.textContent = 'Checkout isn\'t open yet. Total for ' + qty + ': $' + (qty * p.price) + '.';
+      });
+      box.append(buy);
+    } else {
+      var notify = el('button', 'btn btn-outline', 'Notify me when it\'s back');
+      notify.type = 'button';
+      notify.addEventListener('click', function(){
+        notice.textContent = 'Stock alerts are coming soon.';
+      });
+      box.append(notify);
+    }
+    box.append(notice);
+
+    var seller = el('div', 'seller');
+    seller.append(el('span', 'avatar', (p.seller || '?').charAt(0).toUpperCase()));
+    var sText = el('div');
+    sText.append(el('strong', '', p.seller || 'Unknown seller'));
+    sText.append(el('div', 'meta', 'Seller'));
+    sText.lastChild.style.margin = '0';
+    seller.append(sText);
+    box.append(seller);
+
+    info.append(box);
+    detail.append(img, info);
+    app.append(detail);
+
+    // Related: same category, অন্য product
+    var related = all.filter(function(x){ return x.category === p.category && x.id !== p.id; }).slice(0, 4);
+    if (related.length){
+      var sec = el('section', 'related');
+      sec.append(el('h2', '', 'More in ' + p.category));
+      var grid = el('div', 'rel-grid');
+      related.forEach(function(r){
+        var a = el('a', 'rel-card');
+        a.href = 'product.html?id=' + encodeURIComponent(r.id);
+        a.append(el('div', 'rel-thumb ' + (TINTS[r.category] || 'tint-marigold'), r.image || '📦'));
+        a.append(el('p', 'rel-name', r.name));
+        a.append(el('p', 'rel-price', '$' + r.price + (r.stock === 0 ? ' · Out of stock' : '')));
+        grid.append(a);
+      });
+      sec.append(grid);
+      app.append(sec);
+    }
+  }
+
+  // URL থেকে id নাও: product.html?id=3 → 3
+  var id = new URLSearchParams(window.location.search).get('id');
+  if (!id){
+    showState('No product selected', 'Pick a product from the list to see its details.');
+    return;
+  }
+
+  fetch('products.json')
+    .then(function(res){ if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(function(all){
+      var product = all.find(function(p){ return String(p.id) === id; });
+      if (!product){
+        showState('Product not found', 'This product may have been removed.');
+        return;
+      }
+      render(product, all);
+    })
+    .catch(function(err){
+      console.error(err);
+      showState('Couldn\'t load this product', 'Refresh the page to try again.');
+    });
+})();
+</script>
+</body>
+</html>
